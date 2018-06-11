@@ -1,0 +1,15 @@
+
+        <h1>
+            게시판 입니다.
+        </h1>
+        <a href="/posts/new">글쓰러 가기</a>
+        <div>
+        <% @posts.each do |p| %>
+        <hr>
+            id: <%=p.id %><br>
+            title: <%=p.title %><br>
+            body: <%=p.body %><br>
+            dt: <%=p.created_at %><br>
+            <hr>
+        <% end %>
+        </div>
