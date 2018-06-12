@@ -2,11 +2,13 @@
 #/usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/rubygems/specification.rb:2288:in `raise_if_conflicts': Unable to activate dm-serializer-1.2.2, 
 #because json-2.0.2 conflicts with json (~> 1.6) (Gem::ConflictError)
 #위 error 때문에 아래 한줄 작성
-#gem 'json', '~>1.6' #fix json version 
-
+gem 'json', '~>1.6'
 require 'sinatra'
 require 'sinatra/reloader'
 require "./model.rb"
+require "bcrypt" ## 암호화!!
+
+
 before do
     p '********************************'
     p params
@@ -69,9 +71,31 @@ end
 
 get '/posts/update/:id' do
   @id = params[:id]
+  puts "id:"+@id
   Post.get(@id).update(title: params[:title], body: params[:body])
   redirect '/posts/'+@id
 end
 
 
+get '/user/account' do
+   erb :'/user/account'
+end
+ 
+post '/user/accountimp' do
+    
+    
+    @name = params[:name]
+    @email = params[:email]    
+    @password = params[:password]
+    @password_confirm = params[:password_confirm]
+    if ( @password_confirm != @password)
+        redirect '/user/account'
+    end
+    User.create(name:@name,email:@email,password: BCrypt::Password.create(@password))
+    redirect '/posts/posts' 
+end
 
+get '/user/alluser' do
+   @users = User.all
+    erb :'user/alluser'
+end

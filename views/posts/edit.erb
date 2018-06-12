@@ -1,6 +1,6 @@
 <div class="container mt-5 text-center">
       <h1>게시판 입니다.</h1>
-        <form  action="/posts/update" >
+        <form  action="/posts/update/<%=@post.id%>" >
           <div class="form-group">
             <label for="exampleInputEmail1">제목</label>
             <input type="text" name="title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="<%=@post.title %>">
@@ -9,7 +9,6 @@
             <label for="exampleInputPassword1">내용</label>
             <input type="text" name="body" class="form-control" id="exampleInputPassword1"  value="<%=@post.body %>">
           </div>
-            <input type="hidden" value="<%=@post.id%>" name="id">
           <button type="submit" class="btn btn-primary">수정하기</button>
         </form>
          <a href="/posts/posts">홈으로</a>

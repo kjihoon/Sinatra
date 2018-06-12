@@ -1,0 +1,30 @@
+
+
+<div class="container mt-5">
+        <span class="text-right my-3">
+             <h1>회원 명단입니다..</h1>
+        </span>
+       
+        </div>
+<div class="container mt-5 text-center">        
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">name</th>
+      <th scope="col">email</th>
+      <th scope="col">date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |u| %>
+    <tr>
+            <th scope="row"><%=u.id %></th>
+            <td><%=u.name %></td>
+            <td><%=u.email %></td>
+            <td><%=u.created_at %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
