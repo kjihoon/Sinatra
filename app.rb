@@ -2,41 +2,17 @@
 #/usr/local/rvm/rubies/ruby-2.4.0/lib/ruby/2.4.0/rubygems/specification.rb:2288:in `raise_if_conflicts': Unable to activate dm-serializer-1.2.2, 
 #because json-2.0.2 conflicts with json (~> 1.6) (Gem::ConflictError)
 #위 error 때문에 아래 한줄 작성
-gem 'json', '~>1.6' #fix json version 
-
+#gem 'json', '~>1.6' #fix json version 
 
 require 'sinatra'
 require 'sinatra/reloader'
-require 'data_mapper' # metagem, requires common plugins too.
-
+require "./model.rb"
 before do
     p '********************************'
     p params
     p '********************************'    
 end
 
-
-########################################################Data Mapper
-#datamapper
-DataMapper::Logger.new($stdout,:debug)
-# need install dm-sqlite-adapter
-DataMapper::setup(:default, "sqlite3://#{Dir.pwd}/blog.db")
-
-class Post
-  include DataMapper::Resource
-  property :id, Serial
-  property :title, String
-  property :body, Text
-  property :created_at, DateTime
-end
-
-# Perform basic sanity checks and initialize all relationships
-# Call this when you've defined all your models
-DataMapper.finalize
-
-# automatically create the post table
-Post.auto_upgrade!
-########################################################
 
 get '/' do
     send_file 'views/index.html'
@@ -73,3 +49,29 @@ get '/posts/:id' do
     @post =Post.get(@id)
     erb:'posts/show'
 end
+
+
+get '/posts/destroy/:id' do
+  Post.get(params[:id]).destroy
+  # erb :'posts/destroy'
+  redirect '/posts'
+end
+
+
+
+#값을 받아 뿌려주기 위한 용도
+get '/posts/edit/:id' do
+    @id = params[:id]
+    @post = Post.get(@id)
+    erb :'posts/edit'
+end
+
+
+get '/posts/update/:id' do
+  @id = params[:id]
+  Post.get(@id).update(title: params[:title], body: params[:body])
+  redirect '/posts/'+@id
+end
+
+
+

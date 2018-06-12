@@ -14,7 +14,7 @@ class TestInteger < Test::Unit::TestCase
     end
     
     def test_prime
-        assert_equal(5,IntegerQuiz.new.prime_num(10))
+        assert_equal(4,IntegerQuiz.new.prime_num(10))
     end
     
     def test_sum_d
