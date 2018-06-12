@@ -1,53 +1,62 @@
-# 짝수 / 홀수
-
-class IntegerQuiz    
-    def evencheck(num)
-        num.even? ? 'Even' : 'Odd'
+class IntegerQuiz
+  def evencheck(num)
+    # if num%2 == 0
+    #   "Even"
+    # else
+    #   "Odd"
+    # end
+    num.even? ? 'Even' : 'Odd'
+  end
+  
+  def gl(n,m)
+    # n.gcdlcm(m)
+    a = []
+    a[0] = gcd(n,m)
+    a[1] = (n*m)/a[0]
+    return a
+  end
+  
+  def gcd(n,m)
+    if n < m
+      m, n = n, m
     end
     
-    def gl(n,m)
-        a =[]
-        a[0] = gcd(n,m)
-        a[1] = n*m/a[0]
-        return a
+    if m == 0
+      return n
     end
     
-    def gcd(n,m)
-        #1. 입력으로 두 수 m,n(m>n)이 들어온다.
-        #2. n이 0이라면, m을 출력하고 알고리즘을 종료한다.
-        #3. m 이 n으로 나누어 떨어지면, n을 출력하고 알고리즘을 종료한다.
-        #4. 그렇지 않으면, m을 n으로 나눈 나머지를 새롭게 m에 대입하고, 
-        #5. m 과 n을 바꾸고 3번으로 돌아온다.
-        if n< m
-            m,n = n,m
-        end
-        
-        if m ==0 
-            return n
-        end
-            
-        if m%n ==0
-            return n
-        else
-        
-            return gcd(m,n%m) 
-        end
+    if n % m == 0
+      return m
+    else
+      # a, b에 대해서 
+      # a를 b로 나눈 나머지를 
+      # r이라 하면(단, a>b), 
+      # a와 b의 최대공약수는 
+      # b와 r의 최대공약수와 같다. 
+      return gcd(m, n%m)
     end
-    
-    require 'prime'
-    def prime_num(n)
-        #Prime.each(n).count
-        list = (2..n).to_a
-        count =0
-        list.each do |i|
-            (2...i).each do |j|
-                if (i%j==0) && (j != i)
-                    list.delete(i)
-                    break
-                end
-            end
+  end
+  
+  require 'prime'
+  def prime_num(n)
+    #Prime.each(n).count
+    primes = (2..n).to_a
+    # primes = [2,,5,6,7,8,9,10]
+    (2..n).each do |num|
+      # (2...num).each do |divide|
+      (2..num).each do |divide|
+        # if(num%divide == 0)
+        if(num%divide == 0) && divide != num
+          primes.delete(num)
+          break
         end
-        puts list
-        return list.length
+      end
     end
+    return primes.length
+  end
+  
+  def sum_d(n)
+    (1..n).select{|divide| n % divide == 0}.sum
+  end
+  
 end
