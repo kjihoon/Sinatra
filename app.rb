@@ -50,7 +50,8 @@ end
 
 #게시글 view
 get '/posts/posts' do
-      @posts = Post.all
+      #@posts = Post.all
+      @posts = Post.all(:order => [ :id.desc ], :limit => 10)
     erb :'posts/posts'
 end
 
@@ -67,3 +68,8 @@ get '/posts/create' do
     erb :'posts/contents'
 end
 
+get '/posts/:id' do
+    @id = params[:id]
+    @post =Post.get(@id)
+    erb:'posts/show'
+end

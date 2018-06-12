@@ -1,7 +1,10 @@
-<div class="container mt-5 text-center">
-        <h1>게시판 입니다.</h1>
-        <a href="/posts/new">글쓰러 가기</a><br>
-        
+<div class="container mt-5">
+        <span class="text-right my-3">
+             <h1>게시판 입니다.</h1>
+        </span>
+        <span class="text-right my-3">
+            <a class="btn btn-primary" role="button" href="/posts/new">글쓰러 가기</a><br>
+        </span>
        
         </div>
 <div class="container mt-5 text-center">        
@@ -12,6 +15,7 @@
       <th scope="col">title</th>
       <th scope="col">body</th>
       <th scope="col">Date</th>
+      <th scope="col">View</th>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +25,7 @@
             <td><%=p.title %></td>
             <td><%=p.body %></td>
             <td><%=p.created_at %></td>
+            <td><a href="/posts/<%=p.id %>">링크</a></td>
     </tr>
     <% end %>
   </tbody>
